@@ -13,9 +13,8 @@
     y:<div style="font-size: 55px;" id="y">y</div>
     z:<div style="font-size: 55px;" id="z">z</div>
     speed:<div style="font-size: 55px;" id="speed">speed</div>
-    <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
     <script>
-        $(function () {
+        function () {
 
             var shakeThreshold = 1000; // 定义一个摇动的阈值
             var lastUpdate = 0; // 记录上一次摇动的时间
@@ -31,9 +30,11 @@
             // 运动传感器处理
             function deviceMotionHandler(eventData) {
                 var acceleration = eventData.accelerationIncludingGravity; // 获取含重力的加速度
-                $('#x').text(acceleration.x);
-                $('#y').text(acceleration.y);
-                $('#z').text(acceleration.z);
+
+                document.getElementById("x").innerText = acceleration.x;
+                document.getElementById("y").innerText = acceleration.y;
+                document.getElementById("z").innerText = acceleration.z;
+
                 var curTime = new Date().getTime();
 
                 // 100毫秒进行一次位置判断
@@ -49,7 +50,8 @@
 
 
                     var speed = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
-                    $('#speed').text(speed);
+
+                    document.getElementById("speed").innerText = speed;
                     // 前后x, y, z间的差值的绝对值和时间比率超过了预设的阈值，则判断设备进行了摇晃操作
                     if (speed > shakeThreshold) {
                         alert('摇动了');
@@ -60,7 +62,7 @@
                     lastZ = z;
                 }
             }
-        })
+        }
 
     </script>
 </body>
